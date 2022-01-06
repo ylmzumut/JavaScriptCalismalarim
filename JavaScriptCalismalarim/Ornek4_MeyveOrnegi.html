@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ders4_MeyveOrnegi</title>
+    <style>
+        #mesajdiv {
+            /*background-color: aqua;*/
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Örnek 4</h2> <br /> <br />
+    <input type="text" placeholder="Bir meyve giriniz..."
+           id="txtMeyve" />
+    <input type="button" value="Ekle"
+           onclick="MeyveEkle(document.
+        getElementById('txtMeyve').value)" />
+    <table class="table">
+        <tr class="success" style="font-family:Calibri">
+            <th>
+                <div id="mesajdiv"></div>
+            </th>
+        </tr>
+
+    </table>
+    <br />
+    <div id="mesajdiv"></div>
+
+    <script>
+        var meyvesepeti = [];
+
+        function MeyveEkle(meyveadi) {
+            //yeniMeyve isimli object
+            var yeniMeyve = {
+                isim: meyveadi
+            };
+            // Eğer sepet bomboş ise
+            if (meyvesepeti.length == 0) {
+                yeniMeyve.adet = 1;
+                yeniMeyve.id = 1;
+                meyvesepeti.push(yeniMeyve);
+            }
+            // Eğer sepet doluysa
+            else { // meyvesepeti dolu
+
+                var meyvedenVarMi = false;
+
+                //for döngüsüyle sepeti dolaşırım
+                //meyveyi ararım. Bulursam adetini arttırırım
+                for (var i = 0; i < meyvesepeti.length; i++) {
+                    //Aynı meyveden ya büyük harf girerse ya da küçük harf girerse??????
+                    if (meyvesepeti[i].isim == meyveadi) {
+                        meyvedenVarMi = true;
+                        meyvesepeti[i].adet++;
+                        break;
+                    }
+                }
+                if (!meyvedenVarMi) { // if(meyvedenVarMi==false)
+                    yeniMeyve.id = meyvesepeti.length + 1;
+                    yeniMeyve.adet = 1;
+                    meyvesepeti.push(yeniMeyve);
+                }
+            }
+            MeyveDoldur();
+        }
+
+        function MeyveDoldur() {
+            //mesajdiv ile ilgili html'i düzenleyeceğiz.
+            //mesajdiv içindeki innerHTML'i temizleyelim.
+            document.getElementById("mesajdiv").innerHTML = "";
+            //ul etiketini bu dökümanda oluştur.
+            var ul = document.createElement("ul");
+            var toplam = 0;
+            for (var i = 0; i < meyvesepeti.length; i++) {
+                var li = document.createElement("li");
+                var btn = document.createElement("input");
+                btn.setAttribute("type", "button");
+                btn.setAttribute("value", "ARTIR");
+                btn.setAttribute("id", meyvesepeti[i].id);
+                btn.addEventListener("click", UrunuArtir);
+                li.innerHTML = "<span>" + meyvesepeti[i].isim + "-"
+                    + meyvesepeti[i].adet + " adet </span>";
+                li.appendChild(btn);
+                ul.appendChild(li);
+                toplam += meyvesepeti[i].adet;
+            }
+            var li2 = document.createElement("li");
+            li2.innerHTML = "<span>TOPLAM=" + toplam + " adet ürün sepette</span>";
+            ul.appendChild(li2);
+            document.getElementById("mesajdiv").appendChild(ul);
+        }
+        function UrunuArtir() {
+            for (var i = 0; i < meyvesepeti.length; i++) {
+                if (meyvesepeti[i].id == this.id) {
+                    meyvesepeti[i].adet++;
+                    break;
+                }
+            }
+            MeyveDoldur();
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ders3_ikiButonOrnek</title>
+    <style>
+        .BirinciButon {
+            background-color: lightblue;
+            color: black;
+        }
+        .IkinciButon {
+            background-color: lightblue;
+            color: black;
+        }
+    </style>
+    <script>
+        function button1_Click() {
+            //buton2 değişecek
+            document.getElementById("button2").style = "color:red; background-color:pink;";
+            ////1.yöntem
+            //document.getElementById("button1").style = "color:black; background-color:lightblue;";
+            ////2.yöntem
+            //btn.style = "color:black; background-color:lightblue;";
+            //3.yöntem
+            btn.style = "class:\"BirinciButon\"";
+        }
+        function button2_Click() {
+            document.getElementById("button1").style = "color:blue; background-color:powderblue;";
+            ////1.yöntem
+            //document.getElementById("button2").style = "color:black; background-color:lightblue;";
+            ////2.yöntem
+            //btn.style = "color:black; background-color:lightblue;";
+            //3.yöntem
+            btn.style = "class:\"IkinciButon\"";
+        }
+    </script>
+</head>
+<body>
+    <!-- 1.yöntem için -->
+    <!--<input type="button" id="button1" value="Buton 1" class="BirinciButon" onclick="button1_Click()" />-->
+    
+    <input type="button" id="button1" value="Buton 1" class="BirinciButon" onclick="button1_Click(this)" />
+    <br /><br />
+    <!-- 1.yöntem için -->
+    <!--<input type="button" id="button2" value="Buton 2" class="IkinciButon" onclick="button2_Click()" />-->
+
+    <input type="button" id="button2" value="Buton 1" class="IkinciButon" onclick="button2_Click(this)" />
+</body>
+</html>
