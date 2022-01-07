@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> jQuery Örneğimiz </title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    
+</head>
+<body>
+    <h2>Renklendime Örneği JQuery</h2><br />
+    <input type="range" class="renk" id="r" max="255" min="0" /><br />
+    <input type="range" class="renk" id="g" max="255" min="0" /><br />
+    <input type="range" class="renk" id="b" max="255" min="0" /><br />
+    <div id="renkpanel"></div>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $(".renk").change(function () {
+                var r = 0, g = 0, b = 0;
+                r = $("#r").val();
+                g = $("#g").val();
+                b = $("#b").val();
+                var rgb = "rgb(" + r + "," + g + "," + b + ")";
+                var zit = "rgb(" + (255 - r) + "," + (255 - g) + "," + (255 - b) + ")";
+                $("#renkpanel").css("background-color", rgb);
+                $("#renkpanel").css("color", zit);
+                $("#renkpanel").css("height", 150);
+                $("#renkpanel").css("width", 200);
+                $("#renkpanel").css("font-family", "Bahnschrift");
+                $("#renkpanel").css("text-align", "center");
+                $("#renkpanel").css("line-height", "150px");
+               
+                $("#renkpanel").html("<b>" + rgb + "</b>");
+
+            });
+
+        });
+    </script>
+</body>
+</html>

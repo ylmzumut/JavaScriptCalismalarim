@@ -129,15 +129,17 @@
             for (var i = 0; i < meyveSepeti.length; i++) {
                 if (meyveSepeti[i].id == sender.id) {
                     meyveSepeti[i].adet--;
-                    //ek
                     //silmediğimiz zaman sadece adet 0 oluyor tabloda gözükmese de dizi içerisinde yer alıyor.
                     if (meyveSepeti[i].adet == 0) {
                         meyveSepeti.splice(i, 1);
+                        for (var i = 0; i < meyveSepeti.length; i++) {
+                            meyveSepeti[i].id = i + 1;
+                        }
                     }
                     break;
                 }
             }//for bitti
-            
+
             //MeyveDoldur();
             MeyveyiTabloyaDoldur();
         }
@@ -150,13 +152,16 @@
             //        break;
             //    }
             //}//for bitti
-            //2.yöntem ek
+            //2.yöntem
             for (var i = 0; i < meyveSepeti.length; i++) {
                 if (meyveSepeti[i].id == sender.id) {
                     meyveSepeti.splice(i, 1); // ilk parametre hangi id'den itibaren olduğunu ikinci parametre ise o id'den itibaren kaç tane sileceğini belirtiyor.
                     //delete meyveSepeti[i]; --->undefined - tanımsız yapıyor silmiyor o yüzden işimize yaramaz
                     break;
                 }
+            }
+            for (var i = 0; i < meyveSepeti.length; i++) {
+                meyveSepeti[i].id = i + 1;
             }
             //MeyveDoldur();
             MeyveyiTabloyaDoldur();
@@ -165,6 +170,9 @@
         function MeyveyiTabloyaDoldur() {
             document.getElementById("mesajdiv").innerHTML = "";
             var toplam = 0;
+            if (meyveSepeti.length == 0) {
+                return;
+            }
             //<table class="table table-hover">
             var tableHTMLText = "<table class=\"table table-hover\">";
             tableHTMLText += "<tr><th>Meyve id</th><th>Meyve Adı</th>" +
@@ -183,20 +191,20 @@
                     + "\t<input type=\"button\" value=\"-\""
                     + "id=" + meyveSepeti[i].id
                     + " class=\"btn btn-warning\" onclick=\"AdetAzalt(this)\" />"
-                    + "\t<button type=\"button\" class=\"btn btn-danger\" onclick=\"MeyveyiCikar(this)\""
-                    + "id=" + meyveSepeti[i].id
-                    + ">"
+                    + "\t<button class=\"btn btn-danger\" onclick=\"MeyveyiCikar(this)\""
+                    + "id=" + meyveSepeti[i].id + ">"
                     + "<span class=\"glyphicon glyphicon-trash\"></span>"
                     + "</button>"
-                    
+
                     + "</td></tr>";
-                 
+
 
             }
             document.getElementById("mesajdiv").innerHTML = tableHTMLText;
+            tableHTMLText += "</table>";
         }
-        
-        
+
+
     </script>
 
 </body>

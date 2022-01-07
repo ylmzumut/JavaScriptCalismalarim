@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>RGB Örnek</title>
+    <style>
+        #renkpalet{
+            height:300px;
+            width:400px;
+            text-align:center;
+            font-size:40px;
+            font-family:Bahnschrift;
+            border:2px solid black;
+            border-radius:20px;
+            padding:50px;
+        }
+    </style>
+</head>
+<body>
+    <h2> RGB Javascript Örneği </h2>
+    R <input type="range" id="rangered" min="0" max="255" value="0" onchange="Degistir()" />
+    <label id="lblred">0</label><br />
+    G <input type="range" id="rangegreen" min="0" max="255" value="0" onchange="Degistir()" />
+    <label id="lblgreen">0</label><br />
+    B <input type="range" id="rangeblue" min="0" max="255" value="0" onchange="Degistir()" />
+    <label id="lblblue">0</label><br />
+    <div id="renkpalet"></div>
+
+
+    <script>
+        function Degistir() {
+            var r = 0, g = 0, b = 0;
+            r = document.getElementById("rangered").value;
+            g = document.getElementById("rangegreen").value;
+            b = document.getElementById("rangeblue").value;
+
+            document.getElementById("lblred").innerText = r;
+            document.getElementById("lblgreen").innerText = g;
+            document.getElementById("lblblue").innerText = b;
+            //rgb(r,g,b);
+            var renk = "rgb(" + r + "," + g + "," + b + ")";
+            var zitrenk = "rgb(" + (255 - r) + "," + (255 - g) + "," + (255 - b) + ")";
+            //hex
+            var hex = "#" + ToHex(r) + ToHex(g) + ToHex(b);
+
+            document.getElementById("renkpalet").style.backgroundColor = renk;
+            document.getElementById("renkpalet").style.color = zitrenk;
+            document.getElementById("renkpalet").innerText = renk + "\n" + hex;
+            document.getElementById("renkpalet").style.borderColor = zitrenk;
+
+        }
+
+        function ToHex(number) {
+            //gelen sayıyı hex'e çevirecek'
+            var hex = parseInt(number).toString(16);
+            if (hex.length<2) {
+                hex = "0" + hex;
+            }
+            return hex;
+        }
+    </script>
+</body>
+</html>

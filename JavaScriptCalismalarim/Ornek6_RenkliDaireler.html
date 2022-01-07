@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Renkli Daireler</title>
+    <style>
+        .sekil{
+            margin:5px;
+            float:left;
+            height:200px;
+            width:200px;
+            transition:all 1.4s ease;
+            border-radius:100px;
+        }
+        .sekil:hover{
+            transform:scale(1.04) rotate(1800deg) translate(10px);
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        Butona Tıklayarak Renkli Bir Daire Ekleyebilirsiniz...
+    </h2>
+    <input type="button" value="EKLE" onclick="Ekle()" />
+    <div id="divpanel"></div>
+
+
+
+    <script>
+        var divpanel = document.getElementById("divpanel");
+        function Ekle() {
+            //yeni bir div oluşturulacak
+            var yenidiv = document.createElement("div");
+            yenidiv.setAttribute("class", "sekil");
+            yenidiv.style.backgroundColor = RastgeleRenkUret();
+            yenidiv.setAttribute("onclick", "IcineEkle(this)");
+            divpanel.appendChild(yenidiv);
+
+        }
+
+        function IcineEkle(item) {
+            var width = item.offsetWidth;
+            var height = item.offsetHeight;
+            var yenidiv = document.createElement("div");
+            //
+            yenidiv.setAttribute("style",
+                "margin:5px; float:left; height:"+(Number(height)-10)+"px; width:"+(Number(width)-10)+"px; border-radius:"+(Number(height)/2)+"px;"
+
+
+            );
+
+
+            yenidiv.setAttribute("onclick", "IcineEkle(this)");
+            yenidiv.style.backgroundColor = RastgeleRenkUret;
+            item.setAttribute("onclick", null);
+            item.appendChild(yenidiv);
+
+        }
+
+        function RastgeleRenkUret() {
+            var letters = "0123456789ABCDEF";
+            var renk = "#";
+            var rastgele = null;
+            var uretinlenIndex = 0;
+            for (var i = 0; i < 6; i++) {
+                rastgele = Math.random();
+                uretinlenIndex = Math.floor(rastgele * 16);
+                renk += letters[uretinlenIndex];
+            }
+            console.log(renk);
+            return renk;
+        }
+    </script>
+</body>
+</html>
