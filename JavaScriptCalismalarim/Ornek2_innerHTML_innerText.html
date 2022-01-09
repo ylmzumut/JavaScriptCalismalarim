@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Ders2_innerHTML_innerText</title>
     <script>
+        var mesajtextboxi2 = document.getElementById("txtmesaj2");
         function sayfayuklendi() {
             console.log("Sayfamız yüklendi...");
         }
@@ -14,22 +15,28 @@
             console.log(mesajtextboxi.value);
             document.getElementById("lblMesaj").innerText = mesajtextboxi.value;
             mesajtextboxi.value = "";
+            mesajtextboxi2.value = "";
+            document.getElementById("lblMesaj").style = "";
         }
         function Yazdir(txt) {
+            mesajtextboxi2 = document.getElementById("txtmesaj2");
             document.getElementById("lblMesaj").style = "color:pink; background-color:navy;"
             document.getElementById("lblMesaj").innerHTML = "<i>" + txt.value + "</i>";
         }
     </script>
 </head>
 <body onload="sayfayuklendi()">
-    <h2>JAVASCRIPT Nesne seçimi ve fonksiyon Örneğimiz</h2>
-    <br /><br />
+    <h2>JAVASCRIPT Nesne Seçimi ve Fonksiyon Örneğimiz</h2>
+    <h4>innerText-innerHTML Farkı</h4>
+    <br />
     <!--Elemente tıklanınca onfocus="this.value=null" değeri elementin sahip olduğu text'i siler.-->
+    <h4>Aşağıdaki textbox'a yazdığınız mesajınız gönder butonuna tıkladığınızda aktarılacaktır.</h4>
+    <br /><br />
     <input type="text" id="txtmesaj" />
     <input type="button" value="Gönder" onclick="MesajiGonder()" />
     <br />
-    <h4>Aşağıdaki textbox a mesajınızı yazar yazmaz mesajınız aktarılacaktır.</h4>
-    <input type="text" onkeyup="Yazdir(this)" />
+    <h4>Aşağıdaki textbox'a mesajınız yazar yazmaz aktarılacaktır.</h4>
+    <input type="text" id="txtmesaj2" onkeyup="Yazdir(this)" />
     <br /><br />
     Sonuç:
     <label id="lblMesaj"></label>

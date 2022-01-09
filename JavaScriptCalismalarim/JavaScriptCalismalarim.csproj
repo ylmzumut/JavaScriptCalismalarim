@@ -67,12 +67,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jQueryOrnek1.html" />
+    <Content Include="media\Ornek4_MeyveOrnegi_vList.gif" />
+    <Content Include="media\Ornek4_MeyveOrnegi_vTable.gif" />
+    <Content Include="media\Ornek7_jQueryRGB.gif" />
+    <Content Include="Ornek4_MeyveOrnegi_vList.html" />
+    <Content Include="Ornek7_jQueryRGB.html" />
+    <Content Include="media\Ornek1_NesneSecimi.gif" />
+    <Content Include="media\Ornek2_innerHTML_innerText.gif" />
+    <Content Include="media\Ornek3_ikiButonOrnek.gif" />
+    <Content Include="media\Ornek5_RGBOrnek.gif" />
+    <Content Include="media\Ornek6_RenkliDaireler.gif" />
     <Content Include="Ornek6_RenkliDaireler.html" />
     <Content Include="Ornek1_NesneSecimi.html" />
     <Content Include="Ornek2_innerHTML_innerText.html" />
     <Content Include="Ornek3_ikiButonOrnek.html" />
-    <Content Include="Ornek4_MeyveOrnegi.html" />
     <Content Include="Ornek4_MeyveOrnegi_vTable.html" />
     <Content Include="Ornek5_RGBOrnek.html" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />

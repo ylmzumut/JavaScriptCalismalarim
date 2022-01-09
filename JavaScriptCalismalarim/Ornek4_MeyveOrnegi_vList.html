@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Meyve Örneğim - Tablo</title>
+    <title>Meyve Örneğim - List</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,11 +10,11 @@
 <body>
     <div class="container-fluid" style="width:50%">
         <h2>Meyve Sayfası</h2> <br />
-        <input type="text" placeholder="Meyve Giriniz..." id="txtMeyve" class="form-control" /> <br />
-        <input type="button" value="EKLE" onclick="MeyveEkle()" class="btn btn-primary" />
-        <input type="button" value="TEMİZLE" onclick="Temizle()" class="btn btn-warning" />
+        <input type="text" placeholder="Meyve Giriniz..." id="txtMeyve"  /> <br /><br />
+        <input type="button" value="EKLE" onclick="MeyveEkle()" class="btn-primary" />
+        <input type="button" value="TEMİZLE" onclick="Temizle()" class="btn-warning" />
         <br /> <br />
-        <input id="myArama" type="text" placeholder="Arama.." class="form-control">
+        <input id="myArama" type="text" placeholder="Arama.." >
         <br><br>
         <div id="mesajdiv">
 
@@ -68,23 +68,71 @@
                 }
             }
             document.getElementById("txtMeyve").value = "";
-            MeyveyiTabloyaDoldur();
+            MeyveDoldur();
+            
         }
 
-        function AdetArttir(sender) {
+        function MeyveDoldur() {
+            document.getElementById("mesajdiv").innerHTML = "";
+            var toplam = 0;
+            var ol = document.createElement("ol");
+            ol.setAttribute("id", "myList");
+            var span = document.createElement("span");
             for (var i = 0; i < meyveSepeti.length; i++) {
-                if (meyveSepeti[i].id == sender.id) {
+                if (meyveSepeti[i].adet <= 0) {
+                    continue;
+                }
+                toplam += meyveSepeti[i].adet;
+                var li = document.createElement("li");
+                li.innerHTML = "<b>" + meyveSepeti[i].isim
+                    + "</b> - " + meyveSepeti[i].adet +"<b>&emsp;</b>";
+                var artibuton = document.createElement("input");
+                artibuton.setAttribute("type", "button");
+                artibuton.setAttribute("value", "+");
+                artibuton.setAttribute("id", meyveSepeti[i].id);
+                artibuton.addEventListener("click", AdetArttir);
+
+                var azaltbuton = document.createElement("input");
+                azaltbuton.setAttribute("type", "button");
+                azaltbuton.setAttribute("value", "-");
+                azaltbuton.setAttribute("id", meyveSepeti[i].id);
+                azaltbuton.addEventListener("click", AdetAzalt);
+
+                var cikartbuton =
+                    document.createElement("input");
+                cikartbuton.setAttribute("type", "button");
+                cikartbuton.setAttribute("value", "Çıkart");
+                cikartbuton.setAttribute
+                    ("id", meyveSepeti[i].id);
+                cikartbuton.addEventListener
+                    ("click", MeyveyiCikar);
+
+                li.appendChild(artibuton);
+                li.appendChild(azaltbuton);
+                li.appendChild(cikartbuton);
+                ol.appendChild(li);
+
+            }
+            document.getElementById("mesajdiv").appendChild(ol);
+            span.innerHTML = "Toplam =" + toplam;
+            document.getElementById("mesajdiv").appendChild(span);
+        }
+
+        function AdetArttir() {
+            for (var i = 0; i < meyveSepeti.length; i++) {
+                if (meyveSepeti[i].id == this.id) {
                     meyveSepeti[i].adet++;
                     break;
                 }
             }//for bitti
             document.getElementById("myArama").value = "";
-            MeyveyiTabloyaDoldur();
+            MeyveDoldur();
+            
         }
 
-        function AdetAzalt(sender) {
+        function AdetAzalt() {
             for (var i = 0; i < meyveSepeti.length; i++) {
-                if (meyveSepeti[i].id == sender.id) {
+                if (meyveSepeti[i].id == this.id) {
                     meyveSepeti[i].adet--;
                     //silmediğimiz zaman sadece adet 0 oluyor tabloda gözükmese de dizi içerisinde yer alıyor.
                     if (meyveSepeti[i].adet == 0) {
@@ -97,20 +145,21 @@
                 }
             }//for bitti
             document.getElementById("myArama").value = "";
-            MeyveyiTabloyaDoldur();
+            MeyveDoldur();
+            
         }
 
-        function MeyveyiCikar(sender) {
+        function MeyveyiCikar() {
             //1. yöntem adeti sıfırlamak
             //for (var i = 0; i < meyveSepeti.length; i++) {
-            //    if (meyveSepeti[i].id == sender.id) {
+            //    if (meyveSepeti[i].id == this.id) {
             //        meyveSepeti[i].adet = 0;
             //        break;
             //    }
             //}//for bitti
             //2.yöntem
             for (var i = 0; i < meyveSepeti.length; i++) {
-                if (meyveSepeti[i].id == sender.id) {
+                if (meyveSepeti[i].id == this.id) {
                     meyveSepeti.splice(i, 1); // ilk parametre hangi id'den itibaren olduğunu ikinci parametre ise o id'den itibaren kaç tane sileceğini belirtiyor.
                     //delete meyveSepeti[i]; --->undefined - tanımsız yapıyor silmiyor o yüzden işimize yaramaz
                     break;
@@ -120,52 +169,14 @@
                 meyveSepeti[i].id = i + 1;
             }
             document.getElementById("myArama").value = "";
-
-            MeyveyiTabloyaDoldur();
+            MeyveDoldur();
 
         }
-
-        function MeyveyiTabloyaDoldur() {
-            document.getElementById("mesajdiv").innerHTML = "";
-            var toplam = 0;
-            if (meyveSepeti.length == 0) {
-                return;
-            }
-            //<table class="table table-hover">
-            var tableHTMLText = "<table class=\"table table-hover\">";
-            tableHTMLText += "<tr><th>Meyve id</th><th>Meyve Adı</th>" +
-                "<th>Adet</th><th>İşlemler</th></tr > ";
-            for (var i = 0; i < meyveSepeti.length; i++) {
-                if (meyveSepeti[i].adet <= 0) {
-                    continue;
-                }
-                tableHTMLText += "<tbody id=\"myTable\"><tr>"
-                    + "<td>" + meyveSepeti[i].id + "</td>"
-                    + "<td>" + meyveSepeti[i].isim + "</td>"
-                    + "<td>" + meyveSepeti[i].adet + "</td>"
-                    + "<td>" + "\t<input type=\"button\" value=\"+\""
-                    + "id=" + meyveSepeti[i].id
-                    + " class=\"btn btn-success\" onclick=\"AdetArttir(this)\" />"
-                    + "\t<input type=\"button\" value=\"-\""
-                    + "id=" + meyveSepeti[i].id
-                    + " class=\"btn btn-warning\" onclick=\"AdetAzalt(this)\" />"
-                    + "\t<button class=\"btn btn-danger\" onclick=\"MeyveyiCikar(this)\""
-                    + "id=" + meyveSepeti[i].id + ">"
-                    + "<span class=\"glyphicon glyphicon-trash\"></span>"
-                    + "</button>"
-
-                    + "</td></tr>";
-
-
-            }
-            document.getElementById("mesajdiv").innerHTML = tableHTMLText;
-            tableHTMLText += " </tbody></table>";
-        }
-
+       
         $(document).ready(function () {
             $("#myArama").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function () {
+                $("#myList li").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
